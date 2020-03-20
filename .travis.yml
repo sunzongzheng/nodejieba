@@ -1,11 +1,11 @@
 os:
 #  - linux
-#  - windows
-  - osx
+  - windows
+#  - osx
 language: node_js
 env:
-#  - CXX=g++-4.8
-  - CXX=g++
+#  - CXX=g++-4.8 #linux
+  - CXX=g++ #osx
 node_js:
 #  - "iojs-3"
 #  - "4.0.0"
