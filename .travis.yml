@@ -22,12 +22,6 @@ env:
 #  email:
 #    on_success: change
 #    on_failure: always
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - g++-4.8
 #script: NODE_ENV=test istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
 stages:
   - test
@@ -42,6 +36,12 @@ jobs:
     - stage: test
       os: linux
       node_js: "6.0.0"
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-4.8
       script: echo "test"
     - stage: deploy
       os: osx
