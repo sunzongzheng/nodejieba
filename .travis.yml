@@ -60,6 +60,7 @@ jobs:
         file_glob: true
         file:
           - build/stage/*/**
+        skip_cleanup: true
         on:
           branch: master
           tags: true
