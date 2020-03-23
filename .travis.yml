@@ -1,41 +1,22 @@
-#os:
-#  - linux
-#  - windows
-#  - osx
 language: node_js
-env:
-  #  - CXX=g++-4.8 #linux
-  - CXX=g++ #osx
-#node_js:
-#  - "iojs-3"
-#  - "4.0.0"
-#  - "5.7.0"
-#  - "6.0.0"
-#  - "6.9.1"
-#  - "7.1.0"
-#  - "10.0.0"
-#  - "12.0.0"
-#  - "13"
 #notifications:
 #  recipients:
 #    - i@yanyiwu.com
 #  email:
 #    on_success: change
 #    on_failure: always
-#script: NODE_ENV=test istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
 stages:
   - test
   - name: deploy
     if: tag IS present
-
-#script:
-#  - ./node_modules/.bin/node-pre-gyp package
 
 jobs:
   include:
     - stage: test
       os: linux
       node_js: "6.0.0"
+      env:
+        - CXX=g++-4.8
       addons:
         apt:
           sources:
@@ -43,9 +24,20 @@ jobs:
           packages:
             - g++-4.8
       script: echo "test"
+#      script: NODE_ENV=test istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
     - stage: deploy
       os: osx
-      node_js: "12"
+      node_js:
+#        - "6"
+#        - "7"
+#        - "8"
+#        - "9"
+#        - "10"
+#        - "11"
+#        - "12"
+        - "13"
+      env:
+        - CXX=g++
       script:
         - ./node_modules/.bin/node-pre-gyp package
       deploy:
@@ -54,7 +46,7 @@ jobs:
         file_glob: true
         file:
           - build/stage/*/**
-        cleanup: false
+        skip_cleanup: true
         on:
           branch: master
           tags: true
