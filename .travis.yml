@@ -1,18 +1,18 @@
-os:
-  - linux
-  - windows
-  - osx
+#os:
+#  - linux
+#  - windows
+#  - osx
 language: node_js
 env:
 #  - CXX=g++-4.8 #linux
   - CXX=g++ #osx
-node_js:
+#node_js:
 #  - "iojs-3"
 #  - "4.0.0"
 #  - "5.7.0"
-  - "6.0.0"
-  - "6.9.1"
-  - "7.1.0"
+#  - "6.0.0"
+#  - "6.9.1"
+#  - "7.1.0"
 #  - "10.0.0"
 #  - "12.0.0"
 #  - "13"
@@ -29,15 +29,36 @@ addons:
     packages:
       - g++-4.8
 #script: NODE_ENV=test istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
-script:
-  - ./node_modules/.bin/node-pre-gyp package
-deploy:
-  provider: releases
-  api_key: ${GH_TOKEN}
-  file_glob: true
-  file:
-    - build/stage/*/**
-  skip_cleanup: true
-  on:
-    branch: master
-    tags: true
+stages:
+  - test
+  - name: deploy
+      if: branch = master AND tag IS NOT blank
+
+#script:
+#  - ./node_modules/.bin/node-pre-gyp package
+
+jobs:
+  include:
+    - stage: test
+      os:
+        - linux
+      node_js:
+        - "6.0.0"
+      script: echo "test"
+    - stage: deploy
+      os:
+        - osx
+      node_js:
+        - "12"
+      script:
+        - ./node_modules/.bin/node-pre-gyp package
+      deploy:
+        provider: releases
+        api_key: ${GH_TOKEN}
+        file_glob: true
+        file:
+          - build/stage/*/**
+        skip_cleanup: true
+        on:
+          branch: master
+          tags: true
