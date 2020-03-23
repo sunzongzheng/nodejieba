@@ -1,10 +1,5 @@
 dist: xenial
 
-os:
-  - linux
-  - windows
-  - osx
-
 language: node_js
 #notifications:
 #  recipients:
@@ -50,8 +45,10 @@ jobs:
     - <<: *test
       node_js: "13"
 
+    ## deploy linux
     - &deploy
       stage: deploy
+      os: linux
       node_js: "6"
       env:
         - CXX=g++
@@ -79,4 +76,56 @@ jobs:
     - <<: *deploy
       node_js: "12"
     - <<: *deploy
+      node_js: "13"
+
+    ## deploy osx
+    - <<: *deploy
+      os: osx
+      node_js: "6"
+    - <<: *deploy
+      os: osx
+      node_js: "7"
+    - <<: *deploy
+      os: osx
+      node_js: "8"
+    - <<: *deploy
+      os: osx
+      node_js: "9"
+    - <<: *deploy
+      os: osx
+      node_js: "10"
+    - <<: *deploy
+      os: osx
+      node_js: "11"
+    - <<: *deploy
+      os: osx
+      node_js: "12"
+    - <<: *deploy
+      os: osx
+      node_js: "13"
+
+    ## deploy windows
+    - <<: *deploy
+      os: windows
+      node_js: "6"
+    - <<: *deploy
+      os: windows
+      node_js: "7"
+    - <<: *deploy
+      os: windows
+      node_js: "8"
+    - <<: *deploy
+      os: windows
+      node_js: "9"
+    - <<: *deploy
+      os: windows
+      node_js: "10"
+    - <<: *deploy
+      os: windows
+      node_js: "11"
+    - <<: *deploy
+      os: windows
+      node_js: "12"
+    - <<: *deploy
+      os: windows
       node_js: "13"
