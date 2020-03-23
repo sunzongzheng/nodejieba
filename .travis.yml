@@ -28,22 +28,22 @@ jobs:
           packages:
             - g++-4.8
       script: NODE_ENV=test istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
-    - <<: *test
-      node_js: "4.0.0"
-    - <<: *test
-      node_js: "5.7.0"
-    - <<: *test
-      node_js: "6.0.0"
-    - <<: *test
-      node_js: "6.9.1"
-    - <<: *test
-      node_js: "7.1.0"
-    - <<: *test
-      node_js: "10.0.0"
-    - <<: *test
-      node_js: "12.0.0"
-    - <<: *test
-      node_js: "13"
+#    - <<: *test
+#      node_js: "4.0.0"
+#    - <<: *test
+#      node_js: "5.7.0"
+#    - <<: *test
+#      node_js: "6.0.0"
+#    - <<: *test
+#      node_js: "6.9.1"
+#    - <<: *test
+#      node_js: "7.1.0"
+#    - <<: *test
+#      node_js: "10.0.0"
+#    - <<: *test
+#      node_js: "12.0.0"
+#    - <<: *test
+#      node_js: "13"
 
     ## deploy linux
     - &deploy
