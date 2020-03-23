@@ -1,7 +1,7 @@
 {
   "name": "nodejieba",
   "description": "chinese word segmentation for node",
-  "version": "2.4.1",
+  "version": "2.4.12",
   "author": "Yanyi Wu <i@yanyiwu.com>",
   "maintainers": [
     "Yanyi Wu <i@yanyiwu.com>"
@@ -43,8 +43,8 @@
   "binary": {
     "module_name": "nodejieba",
     "module_path": "./build/Release/",
-    "host":  "https://github.com/yanyiwu/nodejieba/releases/download/",
-    "remote_path": "{version}",
+    "host":  "https://github.com/sunzongzheng/nodejieba/releases/download/",
+    "remote_path": "v{version}",
     "package_name": "{module_name}-v{version}-{node_abi}-{platform}-{arch}.tar.gz"
   },
   "license": "MIT"
