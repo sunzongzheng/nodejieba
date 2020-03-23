@@ -1,3 +1,4 @@
+dist: xenial
 language: node_js
 #notifications:
 #  recipients:
@@ -12,18 +13,10 @@ stages:
 
 jobs:
   include:
-    - stage: test
+    - name: test
+      stage: test
       os: linux
-      node_js:
-        - "iojs-3"
-        - "4.0.0"
-        - "5.7.0"
-        - "6.0.0"
-        - "6.9.1"
-        - "7.1.0"
-        - "10.0.0"
-        - "12.0.0"
-        - "13"
+      node_js: "iojs-3"
       env:
         - CXX=g++-4.8
       addons:
@@ -33,7 +26,10 @@ jobs:
           packages:
             - g++-4.8
       script: NODE_ENV=test istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
-    - stage: deploy
+    - {}
+      node_js: "4.0.0"
+    - name: deploy
+      stage: deploy
       os: osx
       node_js:
         - "6"
@@ -50,11 +46,10 @@ jobs:
         - ./node_modules/.bin/node-pre-gyp package
       deploy:
         provider: releases
-        api_key: ${GH_TOKEN}
+        token: ${GH_TOKEN}
         file_glob: true
         file:
           - build/stage/*/**
-        skip_cleanup: true
         on:
           branch: master
           tags: true
